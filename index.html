@@ -4,9 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#b425aa" />
+  <meta name="description" content="Cognitio+ - Your comprehensive mental wellness platform powered by awareness and enhanced by technology." />
   <title>Cognitio+</title>
-  <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Cognitio%22,%22short_name%22:%22Cognitio%22,%22display%22:%22standalone%22,%22background_color%22:%22%23f8f9fa%22,%22theme_color%22:%22%23b425aa%22,%22icons%22:[{%22src%22:%22https://579557-c8ed3d25e86041dcbd15c382ded585e0-1-latest.app.mgx.dev/assets/cognitio-main-logo.png%22,%22sizes%22:%22192x192%22,%22type%22:%22image/png%22}]}">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@400;500;600;700&family=Roboto+Condensed:wght@300;400;700&family=Oswald:wght@500&display=swap" rel="stylesheet">
+  <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Cognitio%22,%22short_name%22:%22Cognitio%22,%22description%22:%22Your%20comprehensive%20mental%20wellness%20platform%20powered%20by%20awareness%20and%20enhanced%20by%20technology.%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22%23f8f9fa%22,%22theme_color%22:%22%23b425aa%22,%22icons%22:[{%22src%22:%22https://579557-c8ed3d25e86041dcbd15c382ded585e0-1-latest.app.mgx.dev/assets/cognitio-main-logo.png%22,%22sizes%22:%22192x192%22,%22type%22:%22image/png%22},{%22src%22:%22https://579557-c8ed3d25e86041dcbd15c382ded585e0-1-latest.app.mgx.dev/assets/cognitio-main-logo.png%22,%22sizes%22:%22512x512%22,%22type%22:%22image/png%22}]}">
+  <link rel="icon" href="https://579557-c8ed3d25e86041dcbd15c382ded585e0-1-latest.app.mgx.dev/assets/cognitio-main-logo.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="https://579557-c8ed3d25e86041dcbd15c382ded585e0-1-latest.app.mgx.dev/assets/cognitio-main-logo.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&family=Roboto+Condensed:wght@300;400;700&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -16,6 +21,7 @@
       --cognitio-purple: #c80ec9;
       --cognitio-gold: #D4AF37;
       --cognitio-neutral: #f8f9fa;
+      --cognitio-dark: #1e293b;
     }
 
     * {
@@ -25,16 +31,18 @@
     body {
       font-family: 'Roboto Condensed', sans-serif;
       background-color: var(--cognitio-neutral);
-      color: #334155;
+      color: var(--cognitio-dark);
       margin: 0;
       padding: 0;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
     }
 
     h1, h2, h3, h4, h5, h6 {
       font-family: 'Poppins', sans-serif;
       font-weight: 600;
+      line-height: 1.2;
     }
 
     .brand-font {
@@ -54,22 +62,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .bar-graph {
-      display: flex;
-      align-items: flex-end;
-      gap: 4px;
-      height: 60px;
-    }
-    .bar {
-      flex: 1;
-      background: #e2e8f0;
-      border-radius: 2px;
-      transition: height 0.5s ease;
-    }
-    .bar.active {
-      background: #b425aa;
-    }
-
     /* PWA-specific styles */
     .pwa-header {
       background: linear-gradient(135deg, var(--cognitio-primary), var(--cognitio-purple));
@@ -77,21 +69,35 @@
       padding: 2rem 1.5rem;
       border-radius: 0 0 24px 24px;
       margin-bottom: 2rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pwa-header::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      border-radius: 50%;
     }
 
     .pwa-card {
       background: white;
       border-radius: 20px;
       padding: 1.5rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
       margin-bottom: 1.5rem;
       transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid rgba(0,0,0,0.05);
     }
 
     .pwa-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
     }
 
     .feature-grid {
@@ -108,11 +114,13 @@
       border-radius: 16px;
       background: #fafafa;
       transition: all 0.2s ease;
+      border: 1px solid #f1f1f6;
     }
 
     .feature-item:hover {
       background: #f5f5f5;
       transform: translateX(4px);
+      border-color: #e2e8f0;
     }
 
     .feature-icon {
@@ -124,12 +132,23 @@
       justify-content: center;
       background: rgba(180, 37, 170, 0.1);
       flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .feature-item:hover .feature-icon {
+      background: rgba(180, 37, 170, 0.15);
+      transform: scale(1.05);
     }
 
     .feature-icon img {
       width: 32px;
       height: 32px;
       object-fit: contain;
+      transition: transform 0.2s ease;
+    }
+
+    .feature-item:hover .feature-icon img {
+      transform: scale(1.1);
     }
 
     .stat-card {
@@ -137,6 +156,13 @@
       padding: 1.5rem;
       border-radius: 16px;
       background: white;
+      border: 1px solid #f1f1f6;
+      transition: transform 0.2s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
     .stat-number {
@@ -152,9 +178,10 @@
     .call-to-action {
       text-align: center;
       padding: 3rem 1.5rem;
-      background: linear-gradient(135deg, rgba(180, 37, 170, 0.05), rgba(200, 14, 201, 0.05));
+      background: linear-gradient(135deg, rgba(180, 37, 170, 0.08), rgba(200, 14, 201, 0.08));
       border-radius: 24px;
-      margin: 2rem 0;
+      margin: 2.5rem 0;
+      border: 1px solid rgba(180, 37, 170, 0.1);
     }
 
     .primary-btn {
@@ -167,13 +194,17 @@
       font-size: 1.125rem;
       cursor: pointer;
       transition: all 0.2s ease;
-      box-shadow: 0 4px 12px rgba(180, 37, 170, 0.3);
+      box-shadow: 0 4px 16px rgba(180, 37, 170, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Poppins', sans-serif;
     }
 
     .primary-btn:hover {
       background: #9d1f94;
       transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(180, 37, 170, 0.4);
+      box-shadow: 0 6px 20px rgba(180, 37, 170, 0.4);
     }
 
     .gold-btn {
@@ -197,11 +228,14 @@
       padding: 1rem;
       border-radius: 16px;
       transition: all 0.2s ease;
+      background: white;
+      border: 1px solid #f1f1f6;
     }
 
     .pillar-item:hover {
       background: #f8f9fa;
       transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
     .dashboard-header {
@@ -210,6 +244,19 @@
       border-radius: 20px;
       padding: 2rem;
       margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dashboard-header::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      border-radius: 50%;
     }
 
     .dashboard-cards {
@@ -227,6 +274,78 @@
       border-radius: 16px;
       background: #fafafa;
       margin-bottom: 1rem;
+      border: 1px solid #f1f1f6;
+    }
+
+    /* Header and Footer Enhancements */
+    .app-header {
+      background: white;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .app-footer {
+      background: white;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      padding: 2rem 0;
+      margin-top: auto;
+    }
+
+    .app-footer .logo-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .app-footer p {
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Loading optimization */
+    .lazy-image {
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .lazy-image.loaded {
+      opacity: 1;
+    }
+
+    /* Responsive improvements */
+    @media (max-width: 768px) {
+      .pwa-header, .dashboard-header {
+        padding: 1.5rem 1rem;
+        border-radius: 0 0 16px 16px;
+      }
+      
+      .call-to-action {
+        padding: 2rem 1rem;
+        margin: 1.5rem 0;
+      }
+      
+      .primary-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .feature-grid, .dashboard-cards, .pillars-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .stat-card {
+        padding: 1rem;
+      }
+      
+      .stat-number {
+        font-size: 2rem;
+      }
     }
   </style>
 </head>
@@ -234,7 +353,7 @@
   <div id="root"></div>
 
   <script type="text/babel">
-    const { useState, useEffect } = React;
+    const { useState, useEffect, useCallback } = React;
 
     // --- Lucide Icons as Inline SVG Components ---
     const createIcon = (pathD, viewBox = "0 0 24 24") => ({ size = 24, className = "" }) => (
@@ -335,6 +454,56 @@
       technology: 'https://appimize.app/assets/apps/user_1097/images/a00e6e94af97_251_1097.png'
     };
 
+    // --- Optimized Image Component with Lazy Loading ---
+    const OptimizedImage = ({ src, alt, className = "", size = "100%", ...props }) => {
+      const [loaded, setLoaded] = useState(false);
+      const [error, setError] = useState(false);
+
+      const handleError = useCallback(() => {
+        setError(true);
+        setLoaded(true);
+      }, []);
+
+      const handleLoad = useCallback(() => {
+        setLoaded(true);
+      }, []);
+
+      return (
+        <div className={className}>
+          {!error && (
+            <img
+              src={src}
+              alt={alt}
+              className={`lazy-image ${loaded ? 'loaded' : ''}`}
+              onLoad={handleLoad}
+              onError={handleError}
+              style={{ 
+                width: '100%', 
+                height: 'auto',
+                display: loaded ? 'block' : 'none'
+              }}
+              loading="lazy"
+              decoding="async"
+              {...props}
+            />
+          )}
+          {(error || !loaded) && (
+            <div 
+              className="bg-gray-100 rounded-lg flex items-center justify-center"
+              style={{ 
+                width: '100%', 
+                height: 'auto',
+                minHeight: '40px',
+                aspectRatio: '1/1'
+              }}
+            >
+              <span className="text-gray-400 text-xs">{alt}</span>
+            </div>
+          )}
+        </div>
+      );
+    };
+
     // --- UI Components ---
     const Button = ({ className = "", variant = 'primary', children, ...props }) => {
       const baseStyle = "px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2";
@@ -372,7 +541,7 @@
 
     const CognitioLogo = ({ size = 'md' }) => {
       const sizes = { sm: 'w-8 h-8', md: 'w-12 h-12', lg: 'w-24 h-24', xl: 'w-32 h-32' };
-      return <img src={ICONS.logo} alt="Cognitio+ Logo" className={`${sizes[size]} object-contain`} />;
+      return <OptimizedImage src={ICONS.logo} alt="Cognitio+ Logo" className={sizes[size]} />;
     };
 
     // --- Greeting Message Component ---
@@ -411,7 +580,7 @@
 
       return (
         <div className="min-h-screen flex flex-col bg-[#f8f9fa]">
-          <header className="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50">
+          <header className="app-header">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
               <div className="flex items-center gap-2 cursor-pointer" onClick={() => onNavigate('home')}>
                 <CognitioLogo size="sm" />
@@ -462,9 +631,11 @@
           <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fadeIn">
             {children}
           </main>
-          <footer className="bg-white border-t border-gray-200 py-8 mt-auto">
+          <footer className="app-footer">
             <div className="max-w-7xl mx-auto px-4 text-center">
-              <div className="flex justify-center mb-4"><CognitioLogo size="sm" /></div>
+              <div className="logo-container">
+                <CognitioLogo size="sm" />
+              </div>
               <p className="text-sm text-gray-500 font-['Roboto_Condensed']">
                 © 2024 Cognitio Health. All rights reserved. <br/>
                 <span className="text-[#b425aa] font-bold">Powered by Awareness, Enhanced by Technology.</span>
@@ -514,13 +685,11 @@
         <div className="pillars-grid">
           {pillars.map((pillar, i) => (
             <div key={i} className="pillar-item">
-              <img src={pillar.icon} 
-                   alt={pillar.name} 
-                   className="h-14 w-14 mx-auto mb-2 object-contain"
-                   onError={(e) => {
-                     e.currentTarget.onerror = null;
-                     e.currentTarget.src='https://placehold.co/56x56/b425aa/ffffff?text=P';
-                   }}/>
+              <OptimizedImage 
+                src={pillar.icon} 
+                alt={pillar.name} 
+                className="h-14 w-14 mx-auto mb-2"
+              />
               <p className="text-sm font-semibold text-gray-900">{pillar.desc}</p>
             </div>
           ))}
@@ -543,7 +712,7 @@
           {features.map((feat, i) => (
             <div key={i} className="feature-item">
               <div className="feature-icon">
-                <img src={feat.icon} alt={feat.title} />
+                <OptimizedImage src={feat.icon} alt={feat.title} />
               </div>
               <div>
                 <h4 className="font-bold text-lg text-gray-800 mb-1">{feat.title}</h4>
@@ -678,6 +847,17 @@
         </div>
       </div>
     );
+
+    // --- PWA Registration ---
+    useEffect(() => {
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch((registrationError) => {
+            console.log('SW registration failed: ', registrationError);
+          });
+        });
+      }
+    }, []);
 
     // --- Main App Component ---
     const initialUser = {
