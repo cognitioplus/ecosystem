@@ -4,950 +4,708 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#b425aa" />
-  <meta name="description" content="Cognitio+ - Your comprehensive mental wellness platform powered by awareness and enhanced by technology." />
   <title>Cognitio+</title>
-  <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Cognitio%22,%22short_name%22:%22Cognitio%22,%22description%22:%22Your%20comprehensive%20mental%20wellness%20platform%20powered%20by%20awareness%20and%20enhanced%20by%20technology.%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22%23f8f9fa%22,%22theme_color%22:%22%23b425aa%22,%22icons%22:[{%22src%22:%22https://579557-c8ed3d25e86041dcbd15c382ded585e0-1-latest.app.mgx.dev/assets/cognitio-main-logo.png%22,%22sizes%22:%22192x192%22,%22type%22:%22image/png%22},{%22src%22:%22https://579557-c8ed3d25e86041dcbd15c382ded585e0-1-latest.app.mgx.dev/assets/cognitio-main-logo.png%22,%22sizes%22:%22512x512%22,%22type%22:%22image/png%22}]}">
-  <link rel="icon" href="https://579557-c8ed3d25e86041dcbd15c382ded585e0-1-latest.app.mgx.dev/assets/cognitio-main-logo.png" type="image/png" sizes="192x192">
-  <link rel="apple-touch-icon" href="https://579557-c8ed3d25e86041dcbd15c382ded585e0-1-latest.app.mgx.dev/assets/cognitio-main-logo.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&family=Roboto+Condensed:wght@300;400;700&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="manifest" href="#manifest-placeholder" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23b425aa%22>C</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@400;500;600;700&family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    const manifest = {
+      "name": "Cognitio+",
+      "short_name": "Cognitio",
+      "start_url": "/",
+      "display": "standalone",
+      "background_color": "#f8f9fa",
+      "theme_color": "#b425aa",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23b425aa%22>C</text></svg>",
+          "sizes": "192x192",
+          "type": "image/svg+xml"
+        }
+      ]
+    };
+    const blob = new Blob([JSON.stringify(manifest, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('link');
+    link.rel = 'manifest';
+    link.href = url;
+    document.head.appendChild(link);
+  </script>
   <style>
     :root {
       --cognitio-primary: #b425aa;
       --cognitio-purple: #c80ec9;
       --cognitio-gold: #D4AF37;
       --cognitio-neutral: #f8f9fa;
-      --cognitio-dark: #1e293b;
     }
-
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       font-family: 'Roboto Condensed', sans-serif;
       background-color: var(--cognitio-neutral);
-      color: var(--cognitio-dark);
+      color: #334155;
       margin: 0;
       padding: 0;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      min-height: 100vh;
     }
-
     h1, h2, h3, h4, h5, h6 {
       font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      line-height: 1.2;
     }
-
     .brand-font {
       font-family: 'Montserrat', sans-serif;
     }
-
     .oswald-font {
       font-family: 'Oswald', sans-serif;
     }
-
     .animate-fadeIn {
       animation: fadeIn 0.3s ease-in-out;
     }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
-    /* PWA-specific styles */
-    .pwa-header {
-      background: linear-gradient(135deg, var(--cognitio-primary), var(--cognitio-purple));
-      color: white;
-      padding: 2rem 1.5rem;
-      border-radius: 0 0 24px 24px;
-      margin-bottom: 2rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .pwa-header::before {
-      content: '';
-      position: absolute;
-      top: -50px;
-      right: -50px;
-      width: 200px;
-      height: 200px;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-      border-radius: 50%;
-    }
-
-    .pwa-card {
-      background: white;
-      border-radius: 20px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-      margin-bottom: 1.5rem;
-      transition: transform 0.2s, box-shadow 0.2s;
-      border: 1px solid rgba(0,0,0,0.05);
-    }
-
-    .pwa-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1.5rem;
-    }
-
-    .feature-item {
+    .bar-graph {
       display: flex;
-      gap: 1rem;
-      padding: 1.25rem;
-      border-radius: 16px;
-      background: #fafafa;
-      transition: all 0.2s ease;
-      border: 1px solid #f1f1f6;
+      align-items: flex-end;
+      gap: 4px;
+      height: 60px;
     }
-
-    .feature-item:hover {
-      background: #f5f5f5;
-      transform: translateX(4px);
-      border-color: #e2e8f0;
+    .bar {
+      flex: 1;
+      background: #e2e8f0;
+      border-radius: 2px;
+      transition: height 0.5s ease;
     }
-
-    .feature-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 14px;
+    .bar.active {
+      background: #b425aa;
+    }
+    .breathing-circle {
+      width: 150px;
+      height: 150px;
+      background-color: #c80ec9;
+      border-radius: 50%;
+      transition: all 1s ease-in-out;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(180, 37, 170, 0.1);
-      flex-shrink: 0;
-      transition: all 0.2s ease;
-    }
-
-    .feature-item:hover .feature-icon {
-      background: rgba(180, 37, 170, 0.15);
-      transform: scale(1.05);
-    }
-
-    .feature-icon img {
-      width: 32px;
-      height: 32px;
-      object-fit: contain;
-      transition: transform 0.2s ease;
-    }
-
-    .feature-item:hover .feature-icon img {
-      transform: scale(1.1);
-    }
-
-    .stat-card {
-      text-align: center;
-      padding: 1.5rem;
-      border-radius: 16px;
-      background: white;
-      border: 1px solid #f1f1f6;
-      transition: transform 0.2s ease;
-    }
-
-    .stat-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    .stat-number {
-      font-size: 2.5rem;
-      font-weight: 800;
-      margin: 0.5rem 0;
-      background: linear-gradient(135deg, var(--cognitio-primary), var(--cognitio-gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .call-to-action {
-      text-align: center;
-      padding: 3rem 1.5rem;
-      background: linear-gradient(135deg, rgba(180, 37, 170, 0.08), rgba(200, 14, 201, 0.08));
-      border-radius: 24px;
-      margin: 2.5rem 0;
-      border: 1px solid rgba(180, 37, 170, 0.1);
-    }
-
-    .primary-btn {
-      background: var(--cognitio-primary);
       color: white;
-      border: none;
-      padding: 0.875rem 2rem;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 1.125rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 16px rgba(180, 37, 170, 0.3);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'Poppins', sans-serif;
+      font-weight: bold;
+      box-shadow: 0 0 20px rgba(180, 37, 170, 0.5);
     }
-
-    .primary-btn:hover {
-      background: #9d1f94;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(180, 37, 170, 0.4);
+    .breathing-circle.breathe-in {
+      transform: scale(1.3);
+      background-color: #b425aa;
     }
-
-    .gold-btn {
-      background: var(--cognitio-gold);
-      color: white;
+    .breathing-circle.breathe-out {
+      transform: scale(0.8);
+      background-color: #c80ec9;
     }
-
-    .gold-btn:hover {
-      background: #b8962e;
-    }
-
-    .pillars-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
-
-    .pillar-item {
-      text-align: center;
-      padding: 1rem;
-      border-radius: 16px;
-      transition: all 0.2s ease;
-      background: white;
-      border: 1px solid #f1f1f6;
-    }
-
-    .pillar-item:hover {
-      background: #f8f9fa;
-      transform: translateY(-3px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-
-    .dashboard-header {
-      background: linear-gradient(135deg, var(--cognitio-primary), var(--cognitio-purple));
-      color: white;
-      border-radius: 20px;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .dashboard-header::before {
-      content: '';
-      position: absolute;
-      top: -50px;
-      right: -50px;
-      width: 200px;
-      height: 200px;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-      border-radius: 50%;
-    }
-
-    .dashboard-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .action-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.25rem;
-      border-radius: 16px;
-      background: #fafafa;
-      margin-bottom: 1rem;
-      border: 1px solid #f1f1f6;
-    }
-
-    /* Header and Footer Enhancements */
-    .app-header {
-      background: white;
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    .app-footer {
-      background: white;
-      border-top: 1px solid rgba(0,0,0,0.08);
-      padding: 2rem 0;
-      margin-top: auto;
-    }
-
-    .app-footer .logo-container {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 1rem;
-    }
-
-    .app-footer p {
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
-
-    /* Loading optimization */
-    .lazy-image {
-      opacity: 0;
-      transition: opacity 0.3s ease-in-out;
-    }
-
-    .lazy-image.loaded {
-      opacity: 1;
-    }
-
-    /* Responsive improvements */
-    @media (max-width: 768px) {
-      .pwa-header, .dashboard-header {
-        padding: 1.5rem 1rem;
-        border-radius: 0 0 16px 16px;
-      }
-      
-      .call-to-action {
-        padding: 2rem 1rem;
-        margin: 1.5rem 0;
-      }
-      
-      .primary-btn {
-        width: 100%;
-        justify-content: center;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .feature-grid, .dashboard-cards, .pillars-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .stat-card {
-        padding: 1rem;
-      }
-      
-      .stat-number {
-        font-size: 2rem;
-      }
-    }
+    .hidden { display: none; }
   </style>
 </head>
 <body>
-  <div id="root"></div>
+  <div id="app"></div>
 
-  <script type="text/babel">
-    const { useState, useEffect, useCallback } = React;
-
-    // --- Lucide Icons as Inline SVG Components ---
-    const createIcon = (pathD, viewBox = "0 0 24 24") => ({ size = 24, className = "" }) => (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={size}
-        height={size}
-        viewBox={viewBox}
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className={className}
-      >
-        <path d={pathD} />
-      </svg>
-    );
-
-    // Define only the icons used
-    const Shield = createIcon("M20 11a8.1 8.1 0 0 0-15.5-2m7.5 8.5v4a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-4M4 15a8.1 8.1 0 0 0 15.5 2M4 15V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8M4 15l4-4 4 4");
-    const UserIcon = createIcon("M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z");
-    const SettingsIcon = createIcon("M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 0 2.61l.55.89a2 2 0 0 1 .29 1.35l-.01.46a2 2 0 0 1-1.35 1.36l-.46.01a2 2 0 0 0-1.19.65l-.18.3a2 2 0 0 0 0 1.83l.18.3a2 2 0 0 0 1.19.65l.46.01a2 2 0 0 1 1.35 1.36l.01.46a2 2 0 0 1-.29 1.35l-.55.89a2 2 0 0 0 0 2.61l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0 0-2.61l-.55-.89a2 2 0 0 1-.29-1.35l.01-.46a2 2 0 0 1 1.35-1.36l.46-.01a2 2 0 0 0 1.19-.65l.18-.3a2 2 0 0 0 0-1.83l-.18-.3a2 2 0 0 0-1.19-.65l-.46-.01a2 2 0 0 1-1.35-1.36l-.01-.46a2 2 0 0 1 .29-1.35l.55-.89a2 2 0 0 0 0-2.61l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z");
-    const Moon = createIcon("M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z");
-    const Globe = createIcon("M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM12 15a5 5 0 1 1 0-10 5 5 0 0 1 0 10ZM8 16h8M8 20h8");
-    const Target = createIcon("M7.1 7.1a10 10 0 1 1-5.4-3.4M12 12c0 .55-.45 1-1 1s-1-.45-1-1 .45-1 1-1 1 .45 1 1ZM12 16c0 .55-.45 1-1 1s-1-.45-1-1 .45-1 1-1 1 .45 1 1ZM12 20c0 .55-.45 1-1 1s-1-.45-1-1 .45-1 1-1 1 .45 1 1Z");
-    const LogOut = createIcon("M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9");
-    const ChevronRight = createIcon("m9 18 6-6-6-6");
-    const HomeIcon = createIcon("M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z");
-    const Activity = createIcon("M22 12h-2.48a2 2 0 0 0-1.93 1.4 7.5 7.5 0 1 1-11.18 0A2 2 0 0 0 4.48 12H2");
-    const BookOpen = createIcon("M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zm20 0h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z");
-    const Calendar = createIcon("M8 2v4M16 2v4M3 10h18M12 14v6M3 20h3M7 20h3M11 20h3M15 20h3M19 20h3M5 2a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z");
-    const Menu = createIcon("M4 8h16M4 16h16");
-    const X = createIcon("M18 6 6 18M6 6l12 12");
-    const Heart = createIcon("M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z");
-    const Brain = createIcon("M12 5a3 3 0 1 0-6 0 3 3 0 0 0 6 0ZM12 19c0 1.7-1.3 3-3 3s-3-1.3-3-3 1.3-3 3-3 3 1.3 3 3ZM19 12c1.7 0 3-1.3 3-3s-1.3-3-3-3-3 1.3-3 3 1.3 3 3 3Z");
-    const Zap = createIcon("M4 14a1 1 0 0 1-.78-1.63l9-11a1 1 0 0 1 1.56 0l9 11A1 1 0 0 1 22 15H13.5l-1.28 5.39a1 1 0 0 1-1.84 0L9 15H4z");
-    const Music = createIcon("M9 18V5l12-2v13M9 18a3 3 0 0 0 3 3 3 3 0 0 0 3-3M9 18a3 3 0 0 1-3-3 3 3 0 0 1 3-3");
-    const Smile = createIcon("M7 10h10M12 15l5-5M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Z");
-    const ArrowLeft = createIcon("m12 19-7-7 7-7M19 12H5");
-    const Play = createIcon("M7 4v16l13-8z");
-    const CheckCircle = createIcon("M22 11.08V12a10 10 0 1 1-5.93-9.14M22 11.08l-5.02 5.03L12 12");
-    const Plus = createIcon("M5 12h14M12 5v14");
-    const Mail = createIcon("M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z");
-    const Lock = createIcon("M18 8h1a4 4 0 0 1 0 8h-1M3 8h16v10H3zm6-2h6V4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2z");
-    const Eye = createIcon("M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z");
-    const EyeOff = createIcon("M9.88 9.88a3 3 0 1 0 4.24 4.24M10.73 5.08A10.43 10.43 0 0 1 12 5c7.22 0 4 10 4 10a5.5 5.5 0 0 0-3 1.5 2 2 0 0 1-2.5-2.5c.54-.54 1.05-1.08 1.51-1.59M2 12s5.46 7.14 10 8c2.68-.56 5.3-2.1 7.5-4.18M2 2l20 20");
-    const Facebook = createIcon("M18 2h-3a5 5 0 0 0-5 5v2H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z");
-    const Bell = createIcon("M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0");
-    const Smartphone = createIcon("M17 2h-3a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-1z");
-    const FileText = createIcon("M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z");
-    const DollarSign = createIcon("M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6");
-    const Clock = createIcon("M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0ZM12 7v5l3 3");
-    const Search = createIcon("M11 5h9M11 9h7M11 13h5M4 20a9 9 0 1 1 13-13 9 9 0 0 1-13 13Z");
-    const Filter = createIcon("M22 3H2l8 9.46V19l4 2v-8.54L22 3z");
-    const Check = createIcon("M20 6 9 17l-5-5");
-    const AlertCircle = createIcon("M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10ZM12 8v4M12 16h.01");
-    const Briefcase = createIcon("M3 7V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2M3 7h18M8 7V5a2 2 0 1 1 4 0v2M8 10v9a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-9M8 10H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9h-2");
-    const Sparkles = createIcon("M11.47 3.33a1 1 0 0 1 1.06 0l4.87 2.6a1 1 0 0 1 .53 1.03l-.93 5.38a1 1 0 0 0 .5 1.04l4.87 2.6a1 1 0 0 1 0 1.87l-4.87 2.6a1 1 0 0 0-.5 1.04l.93 5.38a1 1 0 0 1-.53 1.03l-4.87 2.6a1 1 0 0 1-1.06 0l-4.87-2.6a1 1 0 0 1-.53-1.03l.93-5.38a1 1 0 0 0-.5-1.04l-4.87-2.6a1 1 0 0 1 0-1.87l4.87-2.6a1 1 0 0 0 .5-1.04l-.93-5.38a1 1 0 0 1 .53-1.03l4.87-2.6z");
-    const ArrowRight = createIcon("m9 18 6-6-6-6");
-    const TrendingUp = createIcon("M22 7l-8.97 8.97c-.46.46-1.25.46-1.71 0L3 7");
-    const Users = createIcon("M7 19h4a2 2 0 0 0 2-2v-3a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v3a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2ZM3 7a4 4 0 1 1 8 0 4 4 0 0 1-8 0ZM21 9v3a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2ZM16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z");
-    const Award = createIcon("M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 19l-6.18 3.12L7 15.24 2 10.37l6.91-1.01L12 2z");
-    const BarChart2 = createIcon("M18 20V10M12 20V4M6 20v-4");
-    const Thermometer = createIcon("M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z");
-    const Wind = createIcon("M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2");
-    const MessageSquare = createIcon("M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z");
-    const Share2 = createIcon("M18 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM6 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM21 15a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z");
-    const ThumbsUp = createIcon("M7 22h11a2 2 0 0 0 2-2V7.5a.5.5 0 0 0-.866-.417L17 9.25l-5.5-5.5a.5.5 0 0 0-.824.115L11 4.5V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v18a2 2 0 0 0 2 2z");
-    const Video = createIcon("M23 7l-7 5 7 5V7z");
-    const Clipboard = createIcon("M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2M14 2h-4a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z");
-    const List = createIcon("M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01");
-    const AlertTriangle = createIcon("M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z");
-    const Flame = createIcon("M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 1.078-.94 2-2.5 2-4a2 2 0 0 0-2-2c-1.38 0-2 .5-3 1-2.143 1.072-4.054.224-6 2-1.946 1.776-2.798 3.687-1 6 1.052 1 1.5 2.38 1.5 4 0 1.38.5 2 1 3z");
-    const CheckSquare = createIcon("M9 11l3 3L22 4");
-    const RefreshCw = createIcon("M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15");
-
-    // --- Constants ---
-    const BRAND = {
-      primary: '#b425aa',
-      purple: '#c80ec9',
-      gold: '#D4AF37',
-      neutral: '#f8f9fa'
-    };
-
+  <script>
+    // --- ICONS ---
     const ICONS = {
-      logo: 'https://579557-c8ed3d25e86041dcbd15c382ded585e0-1-latest.app.mgx.dev/assets/cognitio-main-logo.png',
-      resilience: 'https://appimize.app/assets/apps/user_1097/images/20aa97ab307c_945_1097.png',
-      habit: 'https://appimize.app/assets/apps/user_1097/images/2eb035e66921_749_1097.png',
-      wellbe: 'https://appimize.app/assets/apps/user_1097/images/59e4d59b8372_727_1097.png',
+      logo: 'https://placehold.co/48x48/b425aa/ffffff?text=C+',
+      headerIcon: 'https://appimize.app/assets/apps/user_1097/images/b2e254093bca_935_1097.png',
+      resilience: 'https://appimize.app/assets/apps/user_1097/images/dd6354df082d_732_1097.png',
+      habit: 'https://appimize.app/assets/apps/user_1097/images/242b9a310e78_285_1097.png',
+      wellbe: 'https://appimize.app/assets/apps/user_1097/images/5bf48e1b6187_63_1097.png',
+      cognitioPlus: 'https://appimize.app/assets/apps/user_1097/images/265156b5d733_359_1097.png',
+      partner: 'https://appimize.app/assets/apps/user_1097/images/d2e70ec09200_94_1097.png',
+      rooted: 'https://appimize.app/assets/apps/user_1097/images/bfbcbeb7bb69_808_1097.png',
+      awareness: 'https://appimize.app/assets/apps/user_1097/images/ee4a29071876_35_1097.png',
+      technology: 'https://appimize.app/assets/apps/user_1097/images/a00e6e94af97_251_1097.png',
       emotion: 'https://appimize.app/assets/apps/user_1097/images/1fbf3fc9faa2_81_1097.png',
       oasis: 'https://appimize.app/assets/apps/user_1097/images/30eb29593783_604_1097.png',
       growth: 'https://appimize.app/assets/apps/user_1097/images/2d5cb5dadead_225_1097.png',
       psych: 'https://appimize.app/assets/apps/user_1097/images/bae59281d566_404_1097.png',
-      partner: 'https://appimize.app/assets/apps/user_1097/images/d2e70ec09200_94_1097.png',
-      rooted: 'https://appimize.app/assets/apps/user_1097/images/bfbcbeb7bb69_808_1097.png',
-      awareness: 'https://appimize.app/assets/apps/user_1097/images/ee4a29071876_35_1097.png',
-      technology: 'https://appimize.app/assets/apps/user_1097/images/a00e6e94af97_251_1097.png'
     };
 
-    // --- Optimized Image Component with Lazy Loading ---
-    const OptimizedImage = ({ src, alt, className = "", size = "100%", ...props }) => {
-      const [loaded, setLoaded] = useState(false);
-      const [error, setError] = useState(false);
-
-      const handleError = useCallback(() => {
-        setError(true);
-        setLoaded(true);
-      }, []);
-
-      const handleLoad = useCallback(() => {
-        setLoaded(true);
-      }, []);
-
-      return (
-        <div className={className}>
-          {!error && (
-            <img
-              src={src}
-              alt={alt}
-              className={`lazy-image ${loaded ? 'loaded' : ''}`}
-              onLoad={handleLoad}
-              onError={handleError}
-              style={{ 
-                width: '100%', 
-                height: 'auto',
-                display: loaded ? 'block' : 'none'
-              }}
-              loading="lazy"
-              decoding="async"
-              {...props}
-            />
-          )}
-          {(error || !loaded) && (
-            <div 
-              className="bg-gray-100 rounded-lg flex items-center justify-center"
-              style={{ 
-                width: '100%', 
-                height: 'auto',
-                minHeight: '40px',
-                aspectRatio: '1/1'
-              }}
-            >
-              <span className="text-gray-400 text-xs">{alt}</span>
-            </div>
-          )}
-        </div>
-      );
+    // --- MOCK USER ---
+    const MOCK_USER = {
+      id: 'user-123',
+      name: 'Alex Rivera',
+      email: 'alex.r@cognitio.com',
+      userType: 'individual',
+      language: 'en',
+      region: 'PH',
+      goals: ['Improve Sleep', 'Reduce Anxiety'],
+      vulnerabilities: ['Stress', 'Burnout'],
+      onboardingCompleted: false,
+      profile: { occupation: 'Software Engineer', age: 32, bio: 'Focused on growth and mental resilience.' },
+      gamification: {
+        level: 5, xp: 560, badges: ['Mindful Mover', 'Resilience Rookie'],
+        streaks: { meditation: 14 },
+        achievements: ['First Log', '10-Day Streak'],
+      }
     };
 
-    // --- UI Components ---
-    const Button = ({ className = "", variant = 'primary', children, ...props }) => {
-      const baseStyle = "px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2";
+    // --- STATE ---
+    let state = {
+      user: null,
+      currentView: 'home',
+      isMenuOpen: false
+    };
+
+    const setState = (newState) => {
+      state = { ...state, ...newState };
+      render();
+    };
+
+    // --- UTILS ---
+    const createElement = (tag, props = {}, ...children) => {
+      const el = document.createElement(tag);
+      Object.entries(props).forEach(([key, value]) => {
+        if (key.startsWith('on')) {
+          el.addEventListener(key.slice(2).toLowerCase(), value);
+        } else if (key === 'className') {
+          el.className = value;
+        } else if (key === 'style') {
+          Object.assign(el.style, value);
+        } else {
+          el.setAttribute(key, value);
+        }
+      });
+      children.flat().forEach(child => {
+        if (typeof child === 'string') el.appendChild(document.createTextNode(child));
+        else if (child) el.appendChild(child);
+      });
+      return el;
+    };
+
+    const Button = ({ className = '', variant = 'primary', onClick, children, disabled = false }) => {
+      const base = "px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2";
       const variants = {
-        primary: `bg-[${BRAND.primary}] text-white hover:bg-[#9d1f94] shadow-md hover:shadow-lg`,
+        primary: "bg-[#b425aa] text-white hover:bg-[#9d1f94] shadow-md hover:shadow-lg",
         outline: "border border-gray-300 bg-white text-gray-700 hover:bg-gray-50",
         ghost: "text-gray-600 hover:bg-gray-100",
-        danger: "bg-red-50 text-red-600 hover:bg-red-100",
-        gold: `bg-[${BRAND.gold}] text-white hover:bg-[#b8962e] shadow-md`
+        danger: "bg-red-500 text-white hover:bg-red-600 shadow-md",
+        gold: "bg-[#D4AF37] text-white hover:bg-[#b8962e] shadow-md"
       };
-      return <button className={`${baseStyle} ${variants[variant]} ${className}`} {...props}>{children}</button>;
+      return createElement('button', {
+        className: `${base} ${variants[variant]} ${className}`,
+        onClick,
+        disabled
+      }, children);
     };
 
-    const Card = ({ children, className = "" }) => <div className={`bg-white rounded-2xl shadow-sm border border-gray-100 ${className}`}>{children}</div>;
-    const Input = ({ className = "", ...props }) => <input className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[${BRAND.primary}] focus:border-transparent ${className}`} {...props} />;
-    const Label = ({ children, className = "" }) => <label className={`block text-sm font-medium text-gray-700 mb-1 ${className}`}>{children}</label>;
-    const Switch = ({ checked, onCheckedChange }) => (
-      <button 
-        onClick={() => onCheckedChange(!checked)} 
-        className={`w-11 h-6 rounded-full transition-colors relative ${checked ? `bg-[${BRAND.primary}]` : 'bg-gray-200'}`}
-      >
-        <div className={`w-5 h-5 bg-white rounded-full absolute top-0.5 transition-transform ${checked ? 'left-[calc(100%-22px)]' : 'left-0.5'}`} />
-      </button>
-    );
-    const Badge = ({ children, variant = 'default' }) => {
+    const Card = ({ className = '', children }) =>
+      createElement('div', { className: `bg-white rounded-2xl shadow-sm border border-gray-100 ${className}` }, children);
+
+    const Input = ({ className = '', ...props }) =>
+      createElement('input', {
+        className: `w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b425aa] focus:border-transparent ${className}`,
+        ...props
+      });
+
+    const Label = ({ children, className = '' }) =>
+      createElement('label', { className: `block text-sm font-medium text-gray-700 mb-1 ${className}` }, children);
+
+    const Switch = ({ checked, onToggle }) =>
+      createElement('button', {
+        onClick: () => onToggle(!checked),
+        className: `w-11 h-6 rounded-full transition-colors relative ${checked ? 'bg-[#b425aa]' : 'bg-gray-200'}`
+      }, createElement('div', {
+        className: `w-5 h-5 bg-white rounded-full absolute top-0.5 transition-transform ${checked ? 'translate-x-full left-0.5' : 'left-0.5'}`
+      }));
+
+    const Badge = ({ children, variant = 'default', className = '' }) => {
       const styles = {
         default: "bg-gray-100 text-gray-800",
         success: "bg-green-100 text-green-800",
         warning: "bg-yellow-100 text-yellow-800",
         danger: "bg-red-100 text-red-800",
-        purple: `bg-purple-100 text-[${BRAND.primary}]`
+        purple: "bg-purple-100 text-purple-800"
       };
-      return <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${styles[variant]}`}>{children}</span>;
+      return createElement('span', {
+        className: `px-2.5 py-0.5 rounded-full text-xs font-medium ${styles[variant]} ${className}`
+      }, children);
     };
 
-    const CognitioLogo = ({ size = 'md' }) => {
-      const sizes = { sm: 'w-8 h-8', md: 'w-12 h-12', lg: 'w-24 h-24', xl: 'w-32 h-32' };
-      return <OptimizedImage src={ICONS.logo} alt="Cognitio+ Logo" className={sizes[size]} />;
+    const GreetingMessage = ({ name }) => {
+      const now = new Date();
+      let greeting, message, icon;
+      const hour = now.getHours();
+      if (hour < 12) { greeting = "Good morning"; message = "Start your day with mindfulness."; icon = "🌅"; }
+      else if (hour < 18) { greeting = "Good afternoon"; message = "Hope your day is going well."; icon = "☀️"; }
+      else { greeting = "Good evening"; message = "Time to wind down and relax."; icon = "🌙"; }
+      return createElement('div', { className: 'mb-6 text-white' },
+        createElement('div', { className: 'flex items-center gap-2 mb-2' },
+          createElement('h2', { className: 'text-3xl font-bold' }, `${greeting}, ${name}! ${icon}`)
+        ),
+        createElement('p', { className: 'text-purple-100 font-medium' }, message)
+      );
     };
 
-    // --- Greeting Message Component ---
-    const GreetingMessage = () => {
-      const getHolidayGreeting = () => {
-        const now = new Date();
-        const month = now.getMonth() + 1;
-        const date = now.getDate();
-        const dayOfWeek = now.getDay();
-        if (month === 12 && date === 25) return { greeting: "Merry Christmas!", message: "Wishing you joy and peace.", icon: "🎄" };
-        if (dayOfWeek === 0) return { greeting: "Happy Sunday!", message: "A perfect day to rest and recharge.", icon: "☀️" };
-        return null;
+    // --- VIEWS ---
+    const HomeView = () => {
+      const ValuePropositionSection = () => {
+        const propositions = [
+          { title: 'Cognitio+', icon: ICONS.cognitioPlus },
+          { title: 'Your Partner in Resilience', icon: ICONS.partner },
+          { title: 'Rooted in Culture', icon: ICONS.rooted },
+          { title: 'Powered by Awareness', icon: ICONS.awareness },
+          { title: 'Enhanced by Technology', icon: ICONS.technology },
+        ];
+        return createElement('div', { className: 'w-full -mx-4 sm:-mx-6 lg:-mx-8 bg-white border-b-4 border-[#D4AF37]' },
+          createElement('div', { className: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8' },
+            createElement('div', { className: 'text-center mb-8' },
+              createElement('h2', { className: 'text-xl md:text-2xl font-semibold text-gray-800 italic leading-relaxed' },
+                '"Our mission is to empower local communities to integrate mental health and substance abuse services to primary healthcare."'
+              )
+            ),
+            createElement('div', { className: 'flex flex-wrap justify-center gap-4 md:gap-8 mb-8' },
+              ...propositions.map((prop, i) =>
+                createElement('div', { className: 'flex items-center gap-2 text-sm md:text-base font-medium text-gray-600 flex-shrink-0', key: i },
+                  createElement('img', { src: prop.icon, alt: prop.title, className: 'w-6 h-6 object-contain' }),
+                  prop.title
+                )
+              )
+            ),
+            createElement('div', { className: 'flex justify-center gap-4' },
+              Button({ variant: 'primary', className: 'text-lg px-6 py-3', onClick: () => setState({ user: { ...MOCK_USER, onboardingCompleted: false }, currentView: 'onboarding' }) }, 'Begin Your Journey'),
+              Button({ variant: 'outline', className: 'text-lg px-6 py-3', onClick: () => setState({ user: { ...MOCK_USER, onboardingCompleted: false }, currentView: 'onboarding' }) }, 'Login')
+            )
+          )
+        );
       };
 
-      const getTimeBasedGreeting = () => {
-        const hour = new Date().getHours();
-        if (hour < 12) return { greeting: "Good morning", message: "Start your day with mindfulness.", icon: "🌅" };
-        if (hour < 18) return { greeting: "Good afternoon", message: "Hope your day is going well.", icon: "☀️" };
-        return { greeting: "Good evening", message: "Time to wind down and relax.", icon: "🌙" };
+      const StatsInfographic = () =>
+        createElement('div', { className: 'grid grid-cols-1 md:grid-cols-3 gap-6 py-8 px-4 w-full max-w-6xl mx-auto' },
+          createElement('div', { className: 'bg-white p-6 rounded-2xl shadow-xl border-2 border-red-100 flex flex-col items-center text-center transition-shadow hover:shadow-2xl md:col-span-1' },
+            createElement('div', { className: 'w-12 h-12 bg-purple-100 text-[#b425aa] rounded-full flex items-center justify-center mb-4' }, createElement('i', { 'data-lucide': 'users' })),
+            createElement('h3', { className: 'oswald-font text-4xl font-bold text-gray-900 mb-2' }, '1 in 5'),
+            createElement('p', { className: 'text-gray-500 text-sm' }, 'Adults experience mental illness each year.')
+          ),
+          createElement('div', { className: 'bg-white p-6 rounded-2xl shadow-xl border-2 border-red-100 flex flex-col items-center text-center transition-shadow hover:shadow-2xl md:col-span-1' },
+            createElement('div', { className: 'w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-4' }, createElement('i', { 'data-lucide': 'trending-up' })),
+            createElement('h3', { className: 'oswald-font text-4xl font-bold text-gray-900 mb-2' }, '60%'),
+            createElement('p', { className: 'text-gray-500 text-sm' }, 'Of people with mental health conditions go untreated.')
+          ),
+          createElement('div', { className: 'bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center transition-shadow hover:shadow-lg hidden md:flex' },
+            createElement('div', { className: 'w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4' }, createElement('i', { 'data-lucide': 'award' })),
+            createElement('h3', { className: 'oswald-font text-4xl font-bold text-gray-900 mb-2' }, '4x'),
+            createElement('p', { className: 'text-gray-500 text-sm' }, 'Improvement in resilience with regular practice.')
+          )
+        );
+
+      const FeatureShowcase = () => {
+        const features = [
+          { title: "Resilience Navigator", desc: "Build strength with CASE Framework.", iconUrl: ICONS.resilience, view: 'resilience-navigator' },
+          { title: "Habit Design Studio", desc: "Create lasting habits with B=MAP.", iconUrl: ICONS.habit, view: 'habit-studio' },
+          { title: "Well-Be Monitor", desc: "Track physiological stress via HRV.", iconUrl: ICONS.wellbe, view: 'well-be' },
+          { title: "Emotion Tracker", desc: "Understand feelings with Hawkins Scale.", iconUrl: ICONS.emotion, view: 'emotion-tracker' },
+          { title: "Oasis Sanctuary", desc: "Find peace with guided mindfulness.", iconUrl: ICONS.oasis, view: 'oasis' },
+          { title: "Psychological Assessment", desc: "Gain deep self-insight with validated tools.", iconUrl: ICONS.psych, view: 'psych-assess' },
+        ];
+        return createElement('div', { className: 'py-12 max-w-6xl mx-auto px-4' },
+          createElement('h2', { className: 'text-3xl font-bold text-center mb-10 brand-font text-gray-800' }, 'Comprehensive Wellness Tools'),
+          createElement('div', { className: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8' },
+            ...features.map((feat, i) =>
+              Card({ className: 'p-6 transition-all duration-300 hover:shadow-lg cursor-pointer flex flex-col h-full', onClick: () => setState({ currentView: feat.view }) },
+                createElement('div', { className: 'flex items-center gap-4 mb-4' },
+                  createElement('img', { src: feat.iconUrl, alt: feat.title, className: 'w-10 h-10 object-contain flex-shrink-0' }),
+                  createElement('h4', { className: 'font-bold text-xl text-gray-800' }, feat.title)
+                ),
+                createElement('p', { className: 'text-gray-600 text-sm leading-relaxed flex-grow' }, feat.desc),
+                createElement('div', { className: 'mt-4 pt-2 border-t border-gray-50' },
+                  createElement('span', { className: 'text-sm text-[#b425aa] flex items-center gap-1 font-medium' }, 'Explore', createElement('i', { 'data-lucide': 'arrow-right', className: 'w-3.5 h-3.5' }))
+                )
+              )
+            )
+          )
+        );
       };
 
-      const finalGreeting = getHolidayGreeting() || getTimeBasedGreeting();
-
-      return (
-        <div className="mb-4">
-          <div className="flex items-center gap-2 mb-1">
-            <h2 className="text-2xl font-bold">{finalGreeting.greeting} {finalGreeting.icon}</h2>
-          </div>
-          <p className="text-purple-100 font-medium">{finalGreeting.message}</p>
-        </div>
+      return createElement('div', { className: 'flex flex-col items-center -mt-8' },
+        ValuePropositionSection(),
+        StatsInfographic(),
+        createElement('div', { className: 'bg-[#b425aa] w-full -mx-4 sm:-mx-6 lg:-mx-8 p-10 md:p-16 rounded-3xl shadow-2xl mt-8' },
+          createElement('div', { className: 'max-w-4xl mx-auto text-center' },
+            createElement('div', { className: 'flex items-center justify-center mb-4' },
+              createElement('img', { src: ICONS.headerIcon, className: 'w-16 h-16 object-contain' })
+            ),
+            createElement('h1', { className: 'text-5xl md:text-6xl font-extrabold brand-font text-white mb-4 leading-tight' },
+              'Empowering Your ', createElement('span', { className: 'text-[#D4AF37]' }, 'Inner Resilience')
+            ),
+            createElement('p', { className: 'text-xl text-purple-100 mb-8 font-medium' },
+              'Cognitio is the unified platform for mental health and psychological growth.'
+            ),
+            Button({ variant: 'gold', className: 'text-lg px-8 py-3', onClick: () => setState({ user: { ...MOCK_USER, onboardingCompleted: false }, currentView: 'onboarding' }) },
+              'Start Your 7-Day Free Trial', createElement('i', { 'data-lucide': 'chevron-right', className: 'w-4 h-4' })
+            )
+          )
+        ),
+        FeatureShowcase(),
+        createElement('div', { className: 'mt-12 w-full max-w-6xl bg-gray-50 p-10 rounded-2xl text-center' },
+          createElement('h3', { className: 'text-2xl font-bold text-gray-700 mb-4' }, 'Ready to transform your well-being?'),
+          createElement('p', { className: 'text-gray-600 mb-6' }, 'Join thousands of individuals and professionals using Cognitio+.'),
+          Button({ variant: 'primary', className: 'px-6 py-2.5', onClick: () => setState({ user: { ...MOCK_USER, onboardingCompleted: false }, currentView: 'onboarding' }) }, 'Sign Up Now')
+        )
       );
     };
 
-    const AppLayout = ({ children, user, onLogout, onNavigate, onLoginClick }) => {
-      const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const OnboardingView = () => {
+      const [step, setStep] = useState(1);
+      const [goals, setGoals] = useState([]);
+      const [vulnerabilities, setVulnerabilities] = useState([]);
+      const totalSteps = 4;
+      const GOAL_OPTIONS = ['Improve Sleep', 'Reduce Anxiety', 'Build Resilience', 'Increase Focus', 'Better Relationships'];
+      const VULNERABILITY_OPTIONS = ['Stress', 'Burnout', 'Isolation', 'Procrastination', 'Low Mood'];
 
-      return (
-        <div className="min-h-screen flex flex-col bg-[#f8f9fa]">
-          <header className="app-header">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-              <div className="flex items-center gap-2 cursor-pointer" onClick={() => onNavigate('home')}>
-                <CognitioLogo size="sm" />
-                <span className="brand-font font-bold text-xl text-[#b425aa]">Cognitio<span className="text-[#D4AF37]">+</span></span>
-              </div>
-
-              <div className="hidden md:flex items-center gap-6">
-                {user ? (
-                  <>
-                    <nav className="flex items-center gap-4">
-                      <button onClick={() => onNavigate('dashboard')} className="text-gray-600 hover:text-[#b425aa] font-medium transition-colors">Dashboard</button>
-                      <button onClick={() => onNavigate('settings')} className="text-gray-600 hover:text-[#b425aa] font-medium transition-colors">Settings</button>
-                    </nav>
-                    <div className="h-6 w-px bg-gray-200"></div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-[#b425aa]/10 text-[#b425aa] flex items-center justify-center font-bold">
-                        {user.name.charAt(0).toUpperCase()}
-                      </div>
-                      <button onClick={onLogout} className="text-sm text-red-500 hover:text-red-700 font-medium">Sign Out</button>
-                    </div>
-                  </>
-                ) : (
-                  <Button onClick={onLoginClick} size="sm">Login / Sign Up</Button>
-                )}
-              </div>
-
-              <button className="md:hidden p-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                {isMenuOpen ? <X /> : <Menu />}
-              </button>
-            </div>
-            
-            {isMenuOpen && (
-              <div className="md:hidden bg-white border-t border-gray-100 p-4 shadow-lg absolute w-full z-40">
-                <nav className="flex flex-col gap-4">
-                  {user ? (
-                    <>
-                      <button onClick={() => { onNavigate('dashboard'); setIsMenuOpen(false); }} className="text-left text-gray-700">Dashboard</button>
-                      <button onClick={() => { onNavigate('settings'); setIsMenuOpen(false); }} className="text-left text-gray-700">Settings</button>
-                      <button onClick={() => { onLogout(); setIsMenuOpen(false); }} className="text-left text-red-500">Sign Out</button>
-                    </>
-                  ) : (
-                    <Button onClick={() => { onLoginClick(); setIsMenuOpen(false); }}>Login / Sign Up</Button>
-                  )}
-                </nav>
-              </div>
-            )}
-          </header>
-          <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fadeIn">
-            {children}
-          </main>
-          <footer className="app-footer">
-            <div className="max-w-7xl mx-auto px-4 text-center">
-              <div className="logo-container">
-                <CognitioLogo size="sm" />
-              </div>
-              <p className="text-sm text-gray-500 font-['Roboto_Condensed']">
-                © 2024 Cognitio Health. All rights reserved. <br/>
-                <span className="text-[#b425aa] font-bold">Powered by Awareness, Enhanced by Technology.</span>
-              </p>
-            </div>
-          </footer>
-        </div>
-      );
-    };
-
-    // --- Feature Components ---
-    const StatsInfographic = () => (
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="stat-card">
-          <div className="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-3">
-            <Users size={24}/>
-          </div>
-          <h3 className="stat-number">1 in 5</h3>
-          <p className="text-gray-500 text-sm">Adults experience mental illness each year.</p>
-        </div>
-        <div className="stat-card">
-          <div className="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-3">
-            <TrendingUp size={24}/>
-          </div>
-          <h3 className="stat-number">60%</h3>
-          <p className="text-gray-500 text-sm">Of people with mental health conditions go untreated.</p>
-        </div>
-        <div className="stat-card">
-          <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
-            <Award size={24}/>
-          </div>
-          <h3 className="stat-number">4x</h3>
-          <p className="text-gray-500 text-sm">Improvement in resilience with regular practice.</p>
-        </div>
-      </div>
-    );
-
-    const PillarsOfWellness = () => {
-      const pillars = [
-        { name: "Resilience", desc: "Your Partner in Resilience", icon: ICONS.partner },
-        { name: "Culture", desc: "Rooted in Culture", icon: ICONS.rooted },
-        { name: "Awareness", desc: "Powered by Awareness", icon: ICONS.awareness },
-        { name: "Technology", desc: "Enhanced by Technology", icon: ICONS.technology },
-      ];
-
-      return (
-        <div className="pillars-grid">
-          {pillars.map((pillar, i) => (
-            <div key={i} className="pillar-item">
-              <OptimizedImage 
-                src={pillar.icon} 
-                alt={pillar.name} 
-                className="h-14 w-14 mx-auto mb-2"
-              />
-              <p className="text-sm font-semibold text-gray-900">{pillar.desc}</p>
-            </div>
-          ))}
-        </div>
-      );
-    };
-
-    const FeatureShowcase = () => {
-      const features = [
-        { title: "Resilience Navigator", desc: "Build strength with CASE Framework.", icon: ICONS.resilience },
-        { title: "Habit Design Studio", desc: "Create lasting habits with B=MAP.", icon: ICONS.habit },
-        { title: "Well-Be Monitor", desc: "Track physiological stress via HRV.", icon: ICONS.wellbe },
-        { title: "Emotion Tracker", desc: "Understand feelings with Hawkins Scale.", icon: ICONS.emotion },
-        { title: "Oasis Sanctuary", desc: "Find peace with guided mindfulness.", icon: ICONS.oasis },
-        { title: "Professional Care", desc: "Connect with licensed experts.", icon: ICONS.psych },
-      ];
-
-      return (
-        <div className="feature-grid">
-          {features.map((feat, i) => (
-            <div key={i} className="feature-item">
-              <div className="feature-icon">
-                <OptimizedImage src={feat.icon} alt={feat.title} />
-              </div>
-              <div>
-                <h4 className="font-bold text-lg text-gray-800 mb-1">{feat.title}</h4>
-                <p className="text-gray-600 text-sm leading-relaxed">{feat.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      );
-    };
-
-    const DashboardUpdateNote = () => (
-      <div className="pwa-card bg-[#c80ec9]/5 border border-[#b425aa]/20">
-        <h3 className="text-lg font-bold text-[#b425aa] mb-2 oswald-font">Individual Dashboard Update</h3>
-        <p className="text-[#b425aa]/90">
-          <span className="font-semibold">Note:</span> The Comprehensive Wellness Tools have been successfully relocated and are now accessible within your dedicated 
-          <span className="font-bold"> Individual Dashboard</span> upon login, ensuring a more personalized and focused experience.
-        </p>
-      </div>
-    );
-
-    const HomeView = ({ onLoginClick }) => (
-      <>
-        <div className="pwa-header">
-          <GreetingMessage />
-        </div>
-
-        <div className="pwa-card">
-          <h2 className="text-xl font-bold mb-4">Pillars of Wellness</h2>
-          <PillarsOfWellness />
-        </div>
-
-        <div className="pwa-card">
-          <h2 className="text-xl font-bold mb-4">By The Numbers</h2>
-          <StatsInfographic />
-        </div>
-
-        <div className="pwa-card">
-          <h2 className="text-xl font-bold mb-4 brand-font">Comprehensive Wellness Tools</h2>
-          <FeatureShowcase />
-        </div>
-
-        <DashboardUpdateNote />
-
-        <div className="call-to-action">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2 oswald-font tracking-wide">Ready to Transform Your Health?</h2>
-          <p className="text-lg text-gray-600 mb-4">Join thousands who are optimizing their well-being with Cognitio+.</p>
-          <Button 
-            className="primary-btn"
-            onClick={onLoginClick}
-          >
-            Start for Free <ChevronRight size={18} />
-          </Button>
-        </div>
-      </>
-    );
-
-    const MockLoginView = ({ onNavigate }) => (
-      <Card className="max-w-md mx-auto p-6 mt-8">
-        <h2 className="text-2xl font-bold text-[#b425aa] mb-4 text-center">Welcome Back</h2>
-        <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); onNavigate('dashboard'); }}>
-          <div>
-            <Label htmlFor="email">Email Address</Label>
-            <Input type="email" id="email" placeholder="you@example.com" />
-          </div>
-          <div>
-            <Label htmlFor="password">Password</Label>
-            <Input type="password" id="password" placeholder="********" />
-          </div>
-          <Button className="w-full mt-4">Sign In</Button>
-        </form>
-        <p className="text-sm text-center mt-4 text-gray-500">
-          New user? <button className="text-[#b425aa] hover:underline">Create Account</button>
-        </p>
-      </Card>
-    );
-
-    const AppDashboard = () => (
-      <div>
-        <div className="dashboard-header">
-          <GreetingMessage />
-        </div>
-        
-        <div className="dashboard-cards">
-          <div className="pwa-card border-l-4 border-green-500">
-            <div className="flex items-start gap-3">
-              <CheckCircle size={28} className="text-green-500 mt-1 flex-shrink-0" />
-              <div>
-                <p className="font-semibold">Resilience Score: 8.5/10</p>
-                <p className="text-sm text-gray-500">Up 5% from last week.</p>
-              </div>
-            </div>
-          </div>
-          <div className="pwa-card border-l-4 border-blue-500">
-            <div className="flex items-start gap-3">
-              <Clock size={28} className="text-blue-500 mt-1 flex-shrink-0" />
-              <div>
-                <p className="font-semibold">Mindfulness Streak: 12 Days</p>
-                <p className="text-sm text-gray-500">Keep up the great work!</p>
-              </div>
-            </div>
-          </div>
-          <div className="pwa-card border-l-4 border-yellow-500">
-            <div className="flex items-start gap-3">
-              <Activity size={28} className="text-yellow-500 mt-1 flex-shrink-0" />
-              <div>
-                <p className="font-semibold">Well-Be Status: Moderate Stress</p>
-                <p className="text-sm text-gray-500">Try an Oasis session.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="pwa-card">
-          <h3 className="text-xl font-semibold mb-3">Recommended Actions</h3>
-          <div className="space-y-3">
-            <div className="action-item">
-              <div className="flex items-center gap-3">
-                <Zap size={20} className="text-orange-500" />
-                <span>Review your latest Habit Studio progress.</span>
-              </div>
-              <Button variant="ghost" className="text-[#b425aa] p-0 h-auto">Go <ChevronRight size={16} /></Button>
-            </div>
-            <div className="action-item">
-              <div className="flex items-center gap-3">
-                <Music size={20} className="text-pink-500" />
-                <span>Listen to a guided sleep meditation from Oasis.</span>
-              </div>
-              <Button variant="ghost" className="text-[#b425aa] p-0 h-auto">Go <ChevronRight size={16} /></Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-
-    // --- PWA Registration ---
-    useEffect(() => {
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js').catch((registrationError) => {
-            console.log('SW registration failed: ', registrationError);
+      const handleNext = () => {
+        if (step < totalSteps) setStep(step + 1);
+        else {
+          setState({
+            user: { ...state.user, goals, vulnerabilities, onboardingCompleted: true },
+            currentView: 'dashboard'
           });
-        });
-      }
-    }, []);
-
-    // --- Main App Component ---
-    const initialUser = {
-      id: 'mock-user-123',
-      name: 'Alex J.',
-      email: 'alex.j@example.com',
-      userType: 'individual',
-      language: 'en',
-      region: 'NA',
-      goals: ['reduce stress', 'improve sleep'],
-      vulnerabilities: [],
-      onboardingCompleted: true,
-      profile: {},
-      gamification: {
-        level: 5,
-        xp: 450,
-        badges: ['Explorer', 'Mindful Starter'],
-        streaks: {},
-        achievements: [],
-      }
-    };
-
-    const App = () => {
-      const [user, setUser] = useState(null);
-      const [currentView, setCurrentView] = useState('home');
-
-      const handleLogin = () => {
-        setCurrentView('dashboard');
-        setUser(initialUser);
-      };
-
-      const handleLogout = () => {
-        setCurrentView('home');
-        setUser(null);
-      };
-
-      const handleNavigate = (view) => {
-        setCurrentView(view);
-        if (view !== 'home' && !user && view !== 'onboarding') {
-          setCurrentView('home');
         }
       };
 
-      let content;
-      switch (currentView) {
-        case 'home':
-          content = <HomeView onLoginClick={handleLogin} />;
-          break;
-        case 'dashboard':
-          content = <AppDashboard />;
-          break;
-        case 'onboarding':
-        case 'settings':
-        case 'book-service':
-        case 'resilience-navigator':
-        case 'habit-studio':
-        case 'well-be':
-        case 'emotion-tracker':
-        case 'oasis':
-        case 'subscription-plans':
-        case 'growth-tribe':
-        case 'psych-assess':
-          content = (
-            <div className="p-6 text-center">
-              <h2 className="text-xl font-bold text-[#b425aa]">
-                Under Construction: {currentView.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')}
-              </h2>
-              <p className="mt-2">This section would contain the detailed application feature.</p>
-              <Button onClick={() => handleNavigate('home')} className="mt-4"><ArrowLeft size={16} /> Back to Home</Button>
-            </div>
-          );
-          break;
-        default:
-          content = <HomeView onLoginClick={handleLogin} />;
-      }
+      const handleToggleSelection = (list, setList, item) => {
+        if (list.includes(item)) setList(list.filter(g => g !== item));
+        else setList([...list, item]);
+      };
 
-      return (
-        <AppLayout 
-          user={user} 
-          onLogout={handleLogout} 
-          onNavigate={handleNavigate} 
-          onLoginClick={handleLogin}
-        >
-          {content}
-        </AppLayout>
+      const renderStep = () => {
+        switch (step) {
+          case 1:
+            return createElement('div', { className: 'text-center' },
+              createElement('img', { src: ICONS.headerIcon, className: 'w-12 h-12 object-contain mx-auto' }),
+              createElement('h2', { className: 'text-3xl font-bold text-gray-800 mb-2 mt-4' }, `Welcome, ${state.user.name}!`),
+              createElement('p', { className: 'text-gray-600 mb-8' }, `Let's set up your personal journey in ${totalSteps} quick steps.`)
+            );
+          case 2:
+            return createElement('div', null,
+              createElement('div', { className: 'flex items-center gap-3 mb-4' },
+                createElement('img', { src: ICONS.headerIcon, className: 'w-8 h-8 object-contain' }),
+                createElement('h3', { className: 'text-2xl font-bold text-gray-800' }, 'What are your primary goals?')
+              ),
+              createElement('p', { className: 'text-gray-600 mb-6' }, 'Select up to three areas you want to improve.'),
+              ...GOAL_OPTIONS.map(goal =>
+                Button({
+                  key: goal,
+                  variant: goals.includes(goal) ? 'primary' : 'outline',
+                  onClick: () => handleToggleSelection(goals, setGoals, goal),
+                  className: `disabled:opacity-50 ${goals.includes(goal) ? 'flex items-center gap-1' : ''}`,
+                  disabled: !goals.includes(goal) && goals.length >= 3
+                }, goals.includes(goal) ? createElement('i', { 'data-lucide': 'check', className: 'w-4 h-4' }) : createElement('i', { 'data-lucide': 'target', className: 'w-4 h-4' }), goal)
+              ),
+              goals.length === 0 && createElement('p', { className: 'text-sm text-yellow-600 mt-4' },
+                createElement('i', { 'data-lucide': 'alert-triangle', className: 'text-yellow-500 inline mr-2 w-4 h-4' }),
+                'Please select at least one goal to proceed.'
+              )
+            );
+          case 3:
+            return createElement('div', null,
+              createElement('div', { className: 'flex items-center gap-3 mb-4' },
+                createElement('img', { src: ICONS.headerIcon, className: 'w-8 h-8 object-contain' }),
+                createElement('h3', { className: 'text-2xl font-bold text-gray-800' }, 'What are your common vulnerabilities?')
+              ),
+              createElement('p', { className: 'text-gray-600 mb-6' }, 'Understanding them helps us tailor your content.'),
+              ...VULNERABILITY_OPTIONS.map(v =>
+                Button({
+                  key: v,
+                  variant: vulnerabilities.includes(v) ? 'primary' : 'outline',
+                  onClick: () => handleToggleSelection(vulnerabilities, setVulnerabilities, v),
+                  className: vulnerabilities.includes(v) ? 'flex items-center gap-1' : ''
+                }, vulnerabilities.includes(v) ? createElement('i', { 'data-lucide': 'check', className: 'w-4 h-4' }) : createElement('i', { 'data-lucide': 'alert-circle', className: 'w-4 h-4' }), v)
+              ),
+              vulnerabilities.length === 0 && createElement('p', { className: 'text-sm text-yellow-600 mt-4' },
+                createElement('i', { 'data-lucide': 'alert-triangle', className: 'text-yellow-500 inline mr-2 w-4 h-4' }),
+                'Selection optional, but recommended.'
+              )
+            );
+          case 4:
+            return createElement('div', { className: 'text-center' },
+              createElement('img', { src: ICONS.headerIcon, className: 'w-12 h-12 object-contain mx-auto' }),
+              createElement('h2', { className: 'text-3xl font-bold text-gray-800 mb-2 mt-4' }, 'Setup Complete!'),
+              createElement('p', { className: 'text-gray-600 mb-8' }, 'You are ready to start your journey. We\'ve customized your dashboard based on your goals.'),
+              createElement('div', { className: 'flex justify-center flex-wrap gap-2' },
+                Badge({ variant: 'purple' }, goals.join(', ')),
+                vulnerabilities.length > 0 && Badge({ variant: 'warning' }, `Vulnerabilities: ${vulnerabilities.join(', ')}`)
+              )
+            );
+          default: return null;
+        }
+      };
+
+      const isNextDisabled = step === 2 && goals.length === 0;
+
+      return Card({ className: 'max-w-lg mx-auto p-8 shadow-xl' },
+        createElement('div', { className: 'flex justify-between items-center mb-6' },
+          createElement('h1', { className: 'text-xl font-bold text-gray-800' }, `Step ${step}/${totalSteps}`),
+          createElement('div', { className: 'w-1/3 bg-gray-200 rounded-full h-1.5' },
+            createElement('div', { className: 'h-1.5 bg-[#b425aa] rounded-full transition-all duration-500 ease-in-out', style: { width: `${(step / totalSteps) * 100}%` } })
+          )
+        ),
+        renderStep(),
+        createElement('div', { className: 'flex justify-end gap-4 mt-8' },
+          step > 1 && Button({ variant: 'ghost', onClick: () => setStep(step - 1) }, createElement('i', { 'data-lucide': 'arrow-left', className: 'w-4 h-4' }), 'Back'),
+          Button({ onClick: handleNext, disabled: isNextDisabled },
+            step < totalSteps
+              ? [createElement('span', null, 'Next Step'), createElement('i', { 'data-lucide': 'chevron-right', className: 'w-4 h-4' })]
+              : [createElement('span', null, 'Go to Dashboard'), createElement('i', { 'data-lucide': 'zap', className: 'w-4 h-4' })]
+          )
+        )
       );
     };
 
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<App />);
+    const DashboardView = () => {
+      const { level, xp, badges, streaks } = state.user.gamification;
+      const quickLinks = [
+        { title: "Track Emotion", view: 'emotion-tracker', icon: 'smile', color: "text-red-500", bg: "bg-red-50" },
+        { title: "Start Meditation", view: 'oasis', icon: 'music', color: "text-green-500", bg: "bg-green-50" },
+        { title: "Design Habit", view: 'habit-studio', icon: 'target', color: "text-blue-500", bg: "bg-blue-50" },
+        { title: "Check Vitality", view: 'well-be', icon: 'droplet', color: "text-purple-500", bg: "bg-purple-50" },
+      ];
+
+      const WellBeingChart = () => {
+        const data = [10, 30, 50, 45, 20, 60, 35];
+        const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+        return createElement('div', null,
+          createElement('h4', { className: 'text-lg font-semibold mb-3 text-gray-700' }, 'Daily Energy Score'),
+          createElement('div', { className: 'bar-graph' },
+            ...data.map((h, i) =>
+              createElement('div', {
+                key: i,
+                className: `bar ${i === data.length - 1 ? 'active' : ''}`,
+                style: { height: `${h}px` },
+                title: `${days[i]}: ${h} points`
+              })
+            )
+          ),
+          createElement('div', { className: 'flex justify-between text-xs text-gray-500 mt-1' },
+            ...days.map(d => createElement('span', { key: d, className: 'flex-1 text-center' }, d))
+          )
+        );
+      };
+
+      return createElement('div', null,
+        createElement('div', { className: 'flex items-center gap-3 mb-8 pb-4 border-b-2 border-[#b425aa]/10' },
+          createElement('img', { src: ICONS.headerIcon, className: 'w-12 h-12 object-contain' }),
+          createElement('h1', { className: 'text-4xl font-extrabold brand-font text-[#b425aa]' }, 'Your Dashboard')
+        ),
+        GreetingMessage({ name: state.user.name }),
+        createElement('div', { className: 'grid grid-cols-1 lg:grid-cols-3 gap-6' },
+          createElement('div', { className: 'lg:col-span-2 space-y-6' },
+            Card({ className: 'p-5' },
+              createElement('h3', { className: 'text-xl font-bold mb-4 text-gray-800' }, 'Quick Actions'),
+              createElement('div', { className: 'grid grid-cols-2 sm:grid-cols-4 gap-4' },
+                ...quickLinks.map((link, i) =>
+                  Button({
+                    key: i,
+                    variant: 'outline',
+                    className: `flex-col h-24 p-2 ${link.bg}`,
+                    onClick: () => setState({ currentView: link.view })
+                  },
+                    createElement('i', { 'data-lucide': link.icon, className: `w-6 h-6 ${link.color}` }),
+                    createElement('span', { className: 'text-xs font-semibold text-gray-700 mt-1' }, link.title)
+                  )
+                )
+              )
+            ),
+            Card({ className: 'p-6' },
+              createElement('div', { className: 'flex justify-between items-center mb-4' },
+                createElement('h3', { className: 'text-xl font-bold text-gray-800' }, 'My Goals'),
+                Button({ variant: 'ghost', className: 'text-sm' }, 'Manage', createElement('i', { 'data-lucide': 'chevron-right', className: 'w-3.5 h-3.5' }))
+              ),
+              ...state.user.goals.map((goal, i) =>
+                createElement('div', { key: i, className: 'flex flex-col mt-4' },
+                  createElement('div', { className: 'flex justify-between items-center mb-1' },
+                    createElement('span', { className: 'font-medium text-gray-700' }, goal),
+                    Badge({ variant: 'purple' }, '50% Complete')
+                  ),
+                  createElement('div', { className: 'w-full bg-gray-200 rounded-full h-2' },
+                    createElement('div', { className: 'h-2 bg-[#b425aa] rounded-full', style: { width: '50%' } })
+                  )
+                )
+              )
+            )
+          ),
+          createElement('div', { className: 'space-y-6' },
+            Card({ className: 'p-6 text-center bg-[#b425aa] text-white' },
+              createElement('div', { className: 'flex items-center justify-center mb-3' },
+                createElement('i', { 'data-lucide': 'zap', className: 'text-[#D4AF37] w-8 h-8 mr-2' }),
+                createElement('h3', { className: 'text-2xl font-bold' }, `Level ${level}`)
+              ),
+              createElement('p', { className: 'text-sm font-medium text-purple-100 mb-4' }, `${xp} XP to next level`),
+              createElement('div', { className: 'w-full bg-purple-600 rounded-full h-2.5' },
+                createElement('div', { className: 'h-2.5 bg-[#D4AF37] rounded-full', style: { width: `${(xp % 100)}%` } })
+              ),
+              createElement('div', { className: 'flex justify-between text-xs mt-2 text-purple-100' },
+                createElement('span', null, `Current XP: ${xp}`),
+                createElement('span', null, `Next Level: ${level * 100} XP`)
+              )
+            ),
+            Card({ className: 'p-6' },
+              WellBeingChart(),
+              Button({ variant: 'outline', className: 'w-full mt-4', onClick: () => setState({ currentView: 'well-be' }) }, 'Detailed Vitality Report')
+            ),
+            Card({ className: 'p-6' },
+              createElement('h3', { className: 'text-xl font-bold mb-4 text-gray-800' }, 'Active Streaks'),
+              ...Object.entries(streaks).map(([key, value]) =>
+                createElement('div', { key, className: 'flex items-center justify-between p-3 bg-gray-50 rounded-lg mt-3' },
+                  createElement('span', { className: 'text-sm font-medium capitalize flex items-center gap-2' },
+                    createElement('i', { 'data-lucide': 'flame', className: 'text-red-500 w-4 h-4' }),
+                    key
+                  ),
+                  Badge({ variant: 'success' }, `${value} Days`)
+                )
+              )
+            )
+          )
+        )
+      );
+    };
+
+    const AppLayout = (children) => {
+      const navItems = [
+        { name: 'Home', view: 'home', icon: 'home' },
+        ...(state.user ? [
+          { name: 'Dashboard', view: 'dashboard', icon: 'activity' },
+          { name: 'Settings', view: 'settings', icon: 'settings' },
+          { name: 'Plans', view: 'subscription-plans', icon: 'dollar-sign' }
+        ] : [
+          { name: 'Plans', view: 'subscription-plans', icon: 'dollar-sign' }
+        ])
+      ];
+
+      const handleNavigation = (view) => {
+        setState({ currentView: view, isMenuOpen: false });
+      };
+
+      const handleLogout = () => {
+        setState({ user: null, currentView: 'home', isMenuOpen: false });
+      };
+
+      const handleLogin = () => {
+        setState({ user: { ...MOCK_USER, onboardingCompleted: false }, currentView: 'onboarding', isMenuOpen: false });
+      };
+
+      return createElement('div', { className: 'min-h-screen flex flex-col bg-[#f8f9fa]' },
+        createElement('header', { className: 'bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50' },
+          createElement('div', { className: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between' },
+            createElement('div', { className: 'flex items-center gap-2 cursor-pointer', onClick: () => handleNavigation('home') },
+              createElement('img', { src: ICONS.headerIcon, className: 'w-8 h-8 object-contain' }),
+              createElement('span', { className: 'brand-font font-bold text-xl text-[#b425aa]' }, 'Cognitio', createElement('span', { className: 'text-[#D4AF37]' }, '+'))
+            ),
+            createElement('div', { className: 'hidden md:flex items-center gap-6' },
+              ...navItems.map(item =>
+                createElement('button', {
+                  key: item.view,
+                  onClick: () => handleNavigation(item.view),
+                  className: 'text-gray-600 hover:text-[#b425aa] font-medium transition-colors'
+                }, item.name)
+              ),
+              state.user && createElement('div', { className: 'h-6 w-px bg-gray-200' }),
+              createElement('div', { className: 'flex items-center gap-3' },
+                state.user
+                  ? [
+                      createElement('div', { className: 'w-8 h-8 rounded-full bg-[#b425aa]/10 text-[#b425aa] flex items-center justify-center font-bold' }, state.user.name.charAt(0).toUpperCase()),
+                      createElement('button', { onClick: handleLogout, className: 'text-sm text-red-500 hover:text-red-700 font-medium flex items-center gap-1' },
+                        createElement('i', { 'data-lucide': 'log-out', className: 'w-4 h-4' }), ' Sign Out'
+                      )
+                    ]
+                  : Button({ onClick: handleLogin, variant: 'primary', className: 'text-sm' }, 'Login / Sign Up')
+              )
+            ),
+            createElement('button', {
+              className: 'md:hidden p-2 text-gray-700',
+              onClick: () => setState({ isMenuOpen: !state.isMenuOpen })
+            }, state.isMenuOpen ? createElement('i', { 'data-lucide': 'x', className: 'w-6 h-6' }) : createElement('i', { 'data-lucide': 'menu', className: 'w-6 h-6' }))
+          ),
+          state.isMenuOpen && Card({ className: 'md:hidden bg-white border-t border-gray-100 p-4 shadow-xl absolute w-full z-40 animate-fadeIn' },
+            ...navItems.map(item =>
+              createElement('button', {
+                key: item.view,
+                onClick: () => handleNavigation(item.view),
+                className: 'text-left text-gray-700 font-medium flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 w-full'
+              },
+                createElement('i', { 'data-lucide': item.icon, className: 'text-[#b425aa] w-4.5 h-4.5' }),
+                item.name
+              )
+            ),
+            state.user && createElement('button', {
+              onClick: handleLogout,
+              className: 'text-left text-red-500 font-medium flex items-center gap-3 p-2 rounded-lg hover:bg-red-50/50 w-full mt-2'
+            },
+              createElement('i', { 'data-lucide': 'log-out', className: 'w-4.5 h-4.5' }), 'Sign Out'
+            ),
+            !state.user && Button({ onClick: handleLogin, className: 'w-full mt-2' }, 'Login / Sign Up')
+          )
+        ),
+        createElement('main', { className: 'flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fadeIn' }, children),
+        createElement('footer', { className: 'bg-white border-t border-gray-200 py-8 mt-auto' },
+          createElement('div', { className: 'max-w-7xl mx-auto px-4 text-center' },
+            createElement('div', { className: 'flex justify-center mb-4' },
+              createElement('img', { src: ICONS.logo, className: 'w-8 h-8 object-contain rounded-full' })
+            ),
+            createElement('p', { className: 'text-sm text-gray-500 font-["Roboto_Condensed"]' },
+              '© 2024 Cognitio Health. All rights reserved. ',
+              createElement('br'),
+              createElement('span', { className: 'text-[#b425aa] font-bold' }, 'Powered by Awareness, Enhanced by Technology.')
+            )
+          )
+        )
+      );
+    };
+
+    // --- RENDER ---
+    const render = () => {
+      if (state.user && !state.user.onboardingCompleted && state.currentView !== 'onboarding') {
+        setState({ currentView: 'onboarding' });
+        return;
+      }
+
+      let view;
+      if (!state.user && state.currentView !== 'home' && state.currentView !== 'subscription-plans') {
+        view = HomeView();
+      } else if (state.user && !state.user.onboardingCompleted) {
+        view = OnboardingView();
+      } else {
+        switch (state.currentView) {
+          case 'home': view = HomeView(); break;
+          case 'dashboard': view = DashboardView(); break;
+          case 'settings':
+            view = createElement('div', { className: 'text-center p-8' }, 'Settings View (Placeholder)');
+            break;
+          case 'resilience-navigator':
+          case 'habit-studio':
+          case 'well-be':
+          case 'emotion-tracker':
+          case 'oasis':
+          case 'psych-assess':
+          case 'subscription-plans':
+            view = Card({ className: 'p-8 text-center max-w-2xl mx-auto shadow-xl' },
+              createElement('div', { className: 'flex items-center justify-center gap-3 mb-6' },
+                createElement('img', { src: ICONS.headerIcon, className: 'w-8 h-8 object-contain' }),
+                createElement('h1', { className: 'text-3xl font-bold text-gray-800' }, state.currentView.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '))
+              ),
+              createElement('p', { className: 'text-gray-600 mb-6' }, 'Feature coming soon!'),
+              Button({ variant: 'primary', onClick: () => alert(`Launching ${state.currentView}!`), className: 'w-full mb-4' },
+                createElement('i', { 'data-lucide': 'play', className: 'w-4 h-4' }), ' Access Feature'
+              ),
+              Button({ variant: 'outline', onClick: () => setState({ currentView: 'dashboard' }), className: 'w-full' },
+                createElement('i', { 'data-lucide': 'arrow-left', className: 'w-4 h-4' }), ' Back to Dashboard'
+              )
+            );
+            break;
+          default: view = HomeView();
+        }
+      }
+
+      document.getElementById('app').innerHTML = '';
+      document.getElementById('app').appendChild(AppLayout(view));
+      lucide.createIcons();
+    };
+
+    // Initialize
+    render();
   </script>
 </body>
 </html>
